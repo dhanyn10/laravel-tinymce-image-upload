@@ -7,5 +7,5 @@
     ```
 - setup your tinymce app key into `.env` file
     ```
-    TINYMCE_API_KEY="Your API Key"
+    TINYMCE_API_KEY=YOUR_API_KEY_HERE
     ```
