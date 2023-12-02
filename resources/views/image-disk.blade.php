@@ -1,11 +1,12 @@
 @extends('layout')
 @section('content')
     
+
 <script>
     const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
-        xhr.open('POST', '/upload');
+        xhr.open('POST', '/upload-disk');
 
         xhr.upload.onprogress = (e) => {
             progress(e.loaded / e.total * 100);
@@ -16,17 +17,13 @@
             if (xhr.status === 403) {
                 reject({ message: 'Error: ' + xhr.status, remove: true });
                 return;
-            }
-            if (xhr.status === 400) {
+            } else if (xhr.status === 400) {
                 reject({ message: 'Error: ' + json.errorMessage, remove: true });
                 return;
-            }
-
-            if (xhr.status < 200 || xhr.status >= 300) {
+            } else if (xhr.status < 200 || xhr.status >= 300) {
                 reject('Error: ' + xhr.status);
                 return;
             }
-
             if (!json || typeof json.location != 'string') {
                 reject('Invalid JSON: ' + xhr.responseText);
                 return;
@@ -48,13 +45,11 @@
     tinymce.init({ 
         selector:'#with-image-upload',
         menubar: false,
-        // statusbar: false,
-        // plugins: 'tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         plugins: 'image',
         automatic_uploads: true,
+        file_picker_types: 'image',
         images_upload_handler: example_image_upload_handler,
-        images_upload_url: '/upload',
+        images_upload_url: '/upload-disk',
         toolbar: 'image bold italic underline'
     });
 </script>

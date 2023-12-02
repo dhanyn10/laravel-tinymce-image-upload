@@ -11,4 +11,3 @@ Route::get('image-disk', [HomeController::class, 'view_image_disk'])->name('imag
 Route::get('image-blob', [HomeController::class, 'view_image_blob'])->name('image-blob');
 
 Route::post('upload-disk', [ImageController::class, 'upload_disk']);
-Route::post('upload-blob', [ImageController::class, 'upload_blob']);
