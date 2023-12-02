@@ -9,11 +9,19 @@ class ImageController extends Controller
     public function upload(Request $request)
     {
         $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'required|max:2048',
             'alt' => 'nullable|string',
         ]);
 
-        $imageName = time().'.'.$request->file->extension();  
+            // Check if the uploaded file has a valid extension
+        $validExtensions = ['jpeg', 'png', 'jpg'];
+        $fileExtension = $request->file->getClientOriginalExtension();
+
+        if (!in_array($fileExtension, $validExtensions)) {
+            return response()->json(['errorMessage' => 'Invalid file extension. Allowed extensions: jpeg, png, jpg'], 400);
+        }
+
+        $imageName = time().'.'.$request->file->extension();
 
         $request->file->move(public_path('images'), $imageName);
 
