@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/upload' // route location for image upload
+        '/upload-disk', // route location for image upload to disk
+        '/upload-blob'  // route location for image upload to blob data
     ];
 }
