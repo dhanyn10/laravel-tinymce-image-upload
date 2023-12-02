@@ -19,21 +19,24 @@
                 };
         
                 xhr.onload = () => {
+                    const json = JSON.parse(xhr.responseText);
                     if (xhr.status === 403) {
-                    reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
-                    return;
+                        reject({ message: 'Error: ' + xhr.status, remove: true });
+                        return;
+                    }
+                    if (xhr.status === 400) {
+                        reject({ message: 'Error: ' + json.errorMessage, remove: true });
+                        return;
                     }
         
                     if (xhr.status < 200 || xhr.status >= 300) {
-                    reject('HTTP Error: ' + xhr.status);
-                    return;
+                        reject('Error: ' + xhr.status);
+                        return;
                     }
         
-                    const json = JSON.parse(xhr.responseText);
-        
                     if (!json || typeof json.location != 'string') {
-                    reject('Invalid JSON: ' + xhr.responseText);
-                    return;
+                        reject('Invalid JSON: ' + xhr.responseText);
+                        return;
                     }
         
                     resolve(json.location);
@@ -56,8 +59,6 @@
                 // plugins: 'tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
                 // toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
                 plugins: 'image',
-                autosave_ask_before_unload: false,
-                autosave_interval: '5s',
                 automatic_uploads: true,
                 images_upload_handler: example_image_upload_handler,
                 images_upload_url: '/upload',
