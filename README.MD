@@ -1,5 +1,7 @@
 # Laravel 10 TinyMCE with Image Upload
 
+[![Laravel TinyMCE](https://github.com/dhanyn10/laravel-tinymce-image-upload/actions/workflows/laravel.yml/badge.svg)](https://github.com/dhanyn10/laravel-tinymce-image-upload/actions/workflows/laravel.yml)
+
 ### Installation
 - clone this repository
     ```
