@@ -11,3 +11,11 @@
     ```
     TINYMCE_API_KEY=YOUR_API_KEY_HERE
     ```
+- install package using composer
+    ```bash
+    composer install
+    ```
+### Run
+    ```
+    php artisan serve
+    ```
