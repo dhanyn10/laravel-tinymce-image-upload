@@ -23,7 +23,6 @@ jobs:
     - name: Execute tests and run tailwind
       run: |
         npm install
-        npm run dev
         vendor/bin/phpunit
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
